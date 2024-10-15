@@ -1,11 +1,18 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Search, User, Menu } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export function Header() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const pathname = usePathname();
+
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-sm bg-gray-900/75 border-b border-gray-800">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-sm bg-gray-900/90 border-b border-gray-800">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Image
@@ -15,23 +22,63 @@ export function Header() {
             height={40}
             className="rounded-full"
           />
-          <span className="text-xl font-bold">MangaRecap</span>
+          <span className="text-xl font-bold text-white">MangaRecap</span>
         </Link>
-        <nav className="hidden md:flex space-x-4">
-          <Link href="/" className="hover:text-blue-400">Home</Link>
-          <Link href="/recaps" className="hover:text-blue-400">Recaps</Link>
-          <Link href="/manga" className="hover:text-blue-400">Manga</Link>
-          <Link href="/content-creators" className="hover:text-blue-400">Creators</Link>
-          <Link href="/about" className="hover:text-blue-400">About</Link>
+        <nav className="hidden md:flex space-x-6">
+          {[
+            { href: "/", label: "Home" },
+            { href: "/recaps", label: "Recaps" },
+            { href: "/manga", label: "Manga" },
+            { href: "/content-creators", label: "Creators" },
+            { href: "/about", label: "About" },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`text-lg transition-colors duration-200 ${
+                pathname === link.href
+                  ? "text-blue-400 font-semibold"
+                  : "text-gray-300 hover:text-white"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon" aria-label="Search">
-            <Search className="h-5 w-5" />
-          </Button>
-          <Button variant="ghost" size="icon" aria-label="User">
+          {isSearchOpen ? (
+            <input
+              type="text"
+              placeholder="Search..."
+              className="bg-gray-800 text-white px-3 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              autoFocus
+              onBlur={() => setIsSearchOpen(false)}
+            />
+          ) : (
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Search"
+              onClick={() => setIsSearchOpen(true)}
+              className="text-gray-300 hover:text-white transition-colors duration-200"
+            >
+              <Search className="h-5 w-5" />
+            </Button>
+          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="User"
+            className="text-gray-300 hover:text-white transition-colors duration-200"
+          >
             <User className="h-5 w-5" />
           </Button>
-          <Button variant="ghost" size="icon" className="md:hidden" aria-label="Menu">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden text-gray-300 hover:text-white transition-colors duration-200"
+            aria-label="Menu"
+          >
             <Menu className="h-5 w-5" />
           </Button>
         </div>
@@ -41,4 +88,3 @@ export function Header() {
 }
 
 export default Header;
-

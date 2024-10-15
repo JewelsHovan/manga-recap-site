@@ -19,6 +19,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { createClient } from '@/utils/supabase/server';
 import { RecapCard } from '@/components/RecapCard';
+import { Badge } from "@/components/ui/badge";
+import { formatDistanceToNow } from 'date-fns';
 
 // Initialize Supabase client
 const supabase = createClient();
@@ -147,28 +149,44 @@ export default async function HomepageComponent() {
           <div className="space-y-4">
             {recentRecaps && recentRecaps.length > 0 ? (
               recentRecaps.map((recap) => (
-                <Card key={recap.video_title} className="bg-gray-800">
+                <Card 
+                  key={recap.video_title} 
+                  className="bg-gray-800 hover:bg-gray-700 transition-colors duration-200"
+                >
                   <div className="flex items-center p-4">
-                    <Image
-                      src={recap.video_thumbnail_url || '/placeholder.svg'}
-                      alt={recap.video_title}
-                      width={100}
-                      height={100}
-                      className="rounded-lg mr-4 object-cover"
-                    />
-                    <div className="flex-1">
-                      <CardTitle className="text-lg">{recap.video_title}</CardTitle>
-                      <CardDescription className="text-sm">
+                    <div className="relative mr-4">
+                      <Image
+                        src={recap.video_thumbnail_url || '/placeholder.svg'}
+                        alt={recap.video_title}
+                        width={120}
+                        height={68}
+                        className="rounded-lg object-cover"
+                      />
+                      <Badge 
+                        variant="secondary"
+                        className="absolute bottom-1 right-1 bg-black bg-opacity-75"
+                      >
+                        {recap.duration}
+                      </Badge>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <CardTitle className="text-lg font-semibold mb-1 truncate text-white">
+                        {recap.video_title}
+                      </CardTitle>
+                      <CardDescription className="text-sm line-clamp-2 mb-2">
                         {recap.description}
                       </CardDescription>
+                      <p className="text-xs text-gray-400">
+                        {formatDistanceToNow(new Date(recap.published_at), { addSuffix: true })}
+                      </p>
                     </div>
                     <a
                       href={recap.video_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-auto"
+                      className="ml-4"
                     >
-                      <Button>Watch</Button>
+                      <Button className="whitespace-nowrap">Watch Now</Button>
                     </a>
                   </div>
                 </Card>

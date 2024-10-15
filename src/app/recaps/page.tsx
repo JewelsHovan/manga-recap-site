@@ -1,7 +1,7 @@
 import { createClient } from '@/utils/supabase/server';
 import YouTubeRecapCard from '@/components/YouTubeRecapCard';
 import Header from '@/components/Header';
-
+import Footer from '@/components/Footer';
 export default async function YouTubeRecapsPage() {
   const supabase = createClient();
   const { data: recaps, error } = await supabase
@@ -29,6 +29,7 @@ export default async function YouTubeRecapsPage() {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
