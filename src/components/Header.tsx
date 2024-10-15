@@ -9,7 +9,7 @@ export function Header() {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Image
-            src="/placeholder.svg"
+            src="https://wqxsmnozuhqykoqzlzyw.supabase.co/storage/v1/object/public/title_images/recap-logo.webp"
             alt="MangaRecap Logo"
             width={40}
             height={40}
@@ -21,7 +21,7 @@ export function Header() {
           <Link href="/" className="hover:text-blue-400">Home</Link>
           <Link href="/recaps" className="hover:text-blue-400">Recaps</Link>
           <Link href="/manga" className="hover:text-blue-400">Manga</Link>
-          <Link href="/community" className="hover:text-blue-400">Community</Link>
+          <Link href="/content-creators" className="hover:text-blue-400">Creators</Link>
           <Link href="/about" className="hover:text-blue-400">About</Link>
         </nav>
         <div className="flex items-center space-x-4">
