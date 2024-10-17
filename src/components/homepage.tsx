@@ -1,12 +1,10 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
@@ -21,6 +19,7 @@ import { createClient } from '@/utils/supabase/server';
 import { RecapCard } from '@/components/RecapCard';
 import { Badge } from "@/components/ui/badge";
 import { formatDistanceToNow } from 'date-fns';
+import { TopMangaSection } from '@/components/TopMangaSection';
 
 // Initialize Supabase client
 const supabase = createClient();
@@ -198,32 +197,8 @@ export default async function HomepageComponent() {
         </section>
 
         {/* Top Manga/Manhwa/Webtoons */}
-        <section>
-          <h2 className="text-2xl font-bold mb-4">Top Manga/Manhwa/Webtoons</h2>
-          <ScrollArea className="w-full whitespace-nowrap rounded-md border border-gray-700">
-            <div className="flex w-max space-x-4 p-4">
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-                <Card key={item} className="w-[250px] bg-gray-800">
-                  <CardHeader>
-                    <Image
-                      src={`/placeholder.svg?text=Top+${item}`}
-                      alt={`Top Manga ${item}`}
-                      width={250}
-                      height={150}
-                      className="rounded-t-lg object-cover"
-                    />
-                  </CardHeader>
-                  <CardContent>
-                    <CardTitle className="truncate text-lg">Top Manga Title {item}</CardTitle>
-                    <CardDescription className="truncate text-sm">
-                      A brief description of the top-rated manga.
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </ScrollArea>
-        </section>
+        <TopMangaSection />
+
       </main>
     </div>
   );

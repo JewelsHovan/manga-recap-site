@@ -39,8 +39,8 @@ export function RecapCard({ video_title, video_url, video_thumbnail_url, descrip
         <Image
           src={video_thumbnail_url || '/placeholder.svg'}
           alt={video_title}
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: 'cover' }}
           className="transition-transform duration-300 transform group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
